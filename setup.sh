@@ -20,6 +20,10 @@ cmake -S llama.cpp -B llama.cpp/build -DGGML_CUDA=OFF -DGGML_VULKAN=OFF
 # Proven both ways on the default 2-core machine, 2026-11-01.
 cmake --build llama.cpp/build -j 2 --target llama-server llama-cli
 echo "Engine built: llama.cpp/build/bin/llama-server"
+# The model needs 13.4 GB of this disk; the compiler's object files are
+# dead weight once the binaries exist. Drop them (the runner still runs;
+# it just can't be rebuilt without re-running the build).
+find llama.cpp/build -name '*.o' -delete
 
 # --- Stage 2: the brain ---
 # The brain ships zipped in the sister repo (pearl-the-library). Fetch it
@@ -36,8 +40,8 @@ fi
 # size, and the sha256 prefix measured on the proven laptop copy.
 mkdir -p models
 MODEL=models/Qwen3.8-27B-Q3_K_M.gguf
-if [ ! -f "$MODEL" ]; then
-  curl -L -o "$MODEL" \
+if [ ! -f "$MODEL" ] || [ "$(stat -c %s "$MODEL" 2>/dev/null || echo 0)" != "13404051168" ]; then
+  curl -L -C - --retry 3 -o "$MODEL" \
     "https://huggingface.co/bartowski/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-Q3_K_M.gguf"
 fi
 size=$(stat -c %s "$MODEL")
