@@ -1,0 +1,3 @@
+*.gguf
+*.sqlite
+__pycache__/
