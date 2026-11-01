@@ -7,6 +7,9 @@ GitHub caps release files at 2 GB; the engines are 13.4 GB and 29.1 GB. They liv
 | Qwen3.8-27B-Q3_K_M.gguf | 13,404,051,168 | The working engine — runs on 16 GB RAM, CPU build |
 | Qwen3.8-27B-Q8_0.gguf | 29,116,388,960 | High gear — needs more than 16 GB RAM / GPU iron |
 
-Source: HuggingFace (Qwen3.8-27B GGUF). Verified whole on disk 2026-10-31 by byte count against the listing (Q3_K_M sha256 begins 14865aaef0b6c26a… per the HF page).
+Source: HuggingFace — bartowski/Qwen3.8-27B-GGUF, file `Qwen3.8-27B-Q3_K_M.gguf`:
+https://huggingface.co/bartowski/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-Q3_K_M.gguf
+
+Verified whole on disk 2026-10-31 by byte count against the listing (Q3_K_M sha256 begins 14865aaef0b6c26a…). The Codespaces setup downloads the model from that address and re-verifies it before first run: exact size 13,404,051,168 bytes and the same sha256 prefix; on any mismatch it refuses to run.
 
 Runner: llama.cpp build b12019 — **CPU-only Windows build** (`llama-b12019-bin-win-cpu-x64.zip`, ggml-org/llama.cpp releases). The Vulkan build fails on integrated graphics; see the README's hard-won notes.

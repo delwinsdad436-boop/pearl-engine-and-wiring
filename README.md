@@ -12,6 +12,20 @@ A local-first personal AI built from three separable layers:
 
 Verified behavior, 2026-10-31: asked "What is disenchantment?" with a dictionary passage that lists the word but never defines it, she answered: *"The passages don't define disenchantment; they only list it as a noun."* The record outranks the model's memory. That is the point of the design.
 
+## Open her in a Codespace (the one-click door)
+
+You do not need to install anything, and you do not need any particular machine of your own. This link opens this repo in a GitHub Codespace — a computer in the cloud, in your browser:
+
+https://codespaces.new/delwinsdad436-boop/pearl-engine-and-wiring
+
+The setup does the whole job itself, server to server: it builds the engine runner, fetches the brain from the library repo and verifies it by hash, downloads the 13.4 GB model from HuggingFace and verifies it by size and hash, then starts her. The first opening takes a while (roughly 20 minutes — she is 27 billion parameters waking up on a borrowed machine; GitHub picks a machine with room for her). When the setup finishes, she is already running. Ask her something, from the terminal in the Codespace:
+
+```
+python3 brain_ask2.py "What is disenchantment?"
+```
+
+She answers from the brain's passages, or tells you plainly that the passages don't hold it. That is the whole method, running where anyone can open it and see. (If you ever find her stopped — a Codespace restarts fresh — `bash start.sh` brings her back.)
+
 ## Reference hardware (the weakest machine this was proven on)
 
 - Windows laptop, 16 GB RAM, 12th-gen Intel CPU (10 cores), integrated graphics only, NVMe SSD.
