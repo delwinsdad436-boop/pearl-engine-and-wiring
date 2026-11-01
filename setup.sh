@@ -8,7 +8,10 @@ if [ ! -d llama.cpp ]; then
   git clone --depth 1 https://github.com/ggml-org/llama.cpp.git
 fi
 cmake -S llama.cpp -B llama.cpp/build -DGGML_CUDA=OFF -DGGML_VULKAN=OFF
-cmake --build llama.cpp/build -j --target llama-server llama-cli
+# Parallel jobs are capped at 2 on purpose: with unlimited jobs the compilers
+# get killed for memory on a small (8 GB) Codespace and the build dies.
+# Proven both ways on the default 2-core machine, 2026-11-01.
+cmake --build llama.cpp/build -j 2 --target llama-server llama-cli
 echo
 echo "Engine built: llama.cpp/build/bin/llama-server"
 echo "Next: download a model (see MODELS.md) into ./models, then:"
