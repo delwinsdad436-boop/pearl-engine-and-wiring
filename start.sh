@@ -27,6 +27,7 @@ for i in $(seq 1 120); do
   if curl -s --max-time 3 "$HEALTH" | grep -q '"ok"'; then
     echo "She is up: http://127.0.0.1:8080"
     echo 'Ask her:  python3 brain_ask2.py "What is disenchantment?"'
+    echo 'Streaming ask (answer arrives word by word - better on this machine class):  python3 brain_ask3.py "What is disenchantment?"'
     exit 0
   fi
   sleep 5

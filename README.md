@@ -70,6 +70,7 @@ Expected shape: `[N passages pulled from the brain]`, a wait of minutes, then an
 - **CPU build, not Vulkan**, on integrated graphics. See Install.
 - **Reasoning eats budget.** This model thinks before it speaks, spending the same tokens. A 256-token cap returned a *blank* answer — the budget died inside the thinking block. `brain_ask2.py` carries the `/no_think` switch and a 512 budget for grounded Q&A.
 - **No silent blanks.** A tool that returns nothing and says nothing is lying by omission. `brain_ask2.py` prints whatever she returns — answer, labeled thinking, or an explicit nothing-returned report with the finish reason.
+- **Streaming on slow iron.** On the 4-core/16 GB Codespace class, generation measured ~0.03 tokens/s (2026-11-01): `brain_ask2.py`'s all-at-once call timed out after 3,600 s with nothing shown, which reads as broken. `brain_ask3.py` is its streaming twin — same brain search, same prompt, same grounding rules — except the answer prints word by word as it generates. On this class a full answer is still slow; streaming makes the wait visible instead of blank.
 - **Close everything else first.** 13.4 GB of weights in a 16 GB machine leaves no room for an audience.
 
 ## What this repo is not
